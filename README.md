@@ -67,6 +67,10 @@ The diagram is one HTML file with its fonts and logos inlined, so it renders any
   <img src="docs/html-page.png" alt="The docs chatbot diagram as an HTML page in a browser window, with a title, a short description, the diagram, a legend and a footer" width="100%">
 </picture>
 
+## Share it to the gallery
+
+After drawing, the agent offers once to post the diagram to the public gallery at https://stacks.caru.moe. It shows what will be public (the light and dark PNGs, an English title, the tech stack and a display name) and posts only after you say yes twice. Your prompt is never sent. A GitHub login is optional and never shown; it only lets you delete the post later. The site's source is in [`site/`](site).
+
 ## What you get
 
 - **Official logos, fetched for you.** From [svgl](https://svgl.app), then [devicon](https://devicon.dev), then [gilbarbara/logos](https://github.com/gilbarbara/logos), or the brand's own repository. AWS icons come from [AWS's own package](https://aws.amazon.com/architecture/icons/). Never recolored or redrawn.
