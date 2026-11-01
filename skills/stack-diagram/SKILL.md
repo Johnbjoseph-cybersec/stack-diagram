@@ -11,7 +11,7 @@ Produces engineering-drawing-style architecture diagrams: real logos on white ti
 
 ## Requirements
 
-- Python 3.9+ (standard library only for `fetch_icons.py` and `build.py`)
+- Python 3.9+ (standard library only for `fetch_icons.py`, `build.py` and `share.py`)
 - Network access to the icon sources (svgl.app, raw.githubusercontent.com, cdn.jsdelivr.net, aws.amazon.com and d1.awsstatic.com for AWS icons, plus the brand's own site or repo for `name=URL`) when fetching icons
 - Playwright + Chromium for `render_png.py`: `pip install playwright && python3 -m playwright install --with-deps chromium`
 
@@ -23,6 +23,7 @@ Produces engineering-drawing-style architecture diagrams: real logos on white ti
 4. Build the HTML from `assets/template.html` — `scripts/build.py`
 5. **Render a PNG and look at it** before delivering
 6. Deliver in the requested format(s)
+7. Optionally share it to the public gallery
 
 ## Step 1 — Content
 
@@ -102,3 +103,29 @@ Fix and re-render until clean. This loop is cheap; shipping a diagram with overl
 If several formats are requested, build the HTML once and derive the rest from it.
 
 In the footer, credit the icon sources actually used — the `source` field of each entry in the icons dir's `manifest.json` (e.g. `icons: svgl / devicon / Lucide`; source `aws` reads `AWS Architecture Icons`). Brand logos remain the trademarks of their owners. Keep the template's "made with stack-diagram" link after the credits unless the user asks to remove it; a default PNG captures only the canvas, so the link stays out of it.
+
+## Step 7 — Share to the gallery (optional)
+
+Offer this only where you can run shell commands with network access; otherwise skip the step. After delivering, add one line in the user's language offering to share it, with the gallery link so they can look first. For example: "If you'd like to share this diagram, I can post it to the public gallery: https://stacks.caru.moe". Say it once per conversation and never raise it again; never submit without the user's explicit yes.
+
+On a yes, ask for a display name (don't fill it in from `gh` or git) and whether to add a GitHub login. The login is optional and never shown publicly; it only lets them delete the post later by signing in to the gallery with that account. If `gh` is signed in, offer the result of `gh api user -q .login`; include it only if they agree.
+
+Then show exactly what will be sent before sending anything:
+
+- the light and dark PNGs — the `.canvas` pair `render_png.py` writes (`out.png` / `out-dark.png`) — with their paths and every label in them
+- a title, in plain English even when the conversation isn't. It describes the diagram, not the request. The diagram's own labels stay as they are.
+- the stack: the technologies in the diagram, by their official names
+- the display name
+- the GitHub login, if any, marked as not public
+
+Point out anything that looks internal — hostnames, IPs, customer or company names, internal service names — and suggest re-rendering without it first. Ask them to confirm it is their own system or one they may show publicly, and send only after a second explicit yes on that exact content.
+
+```bash
+python3 scripts/share.py submit out.png out-dark.png --title "..." --stack "..." --name "..." [--github LOGIN] [--icons DIR]
+```
+
+`--stack` lists the technologies, comma-separated, by their official names. Write `Name=key` to show a technology's logo beside it in the gallery: `key` is its entry in the icons dir's `manifest.json`, and `--icons` takes that dir (`<icons-dir>` from Step 2). A name without `=` goes without a logo, for example `--stack "Next.js=nextjs,Hono=hono,Neon" --icons <icons-dir>`. The gallery shows only logos from svgl, gilbarbara/logos and devicon; AWS, Lucide and logos from a brand's own site or repo go without one.
+
+If `share.py` rejects a PNG as too large, re-render with a lower `--scale` and show the new pair before sending.
+
+Tell the user the URL, that a held post appears only after a manual review, and the path where `share.py` says it saved the delete key. To delete later: `python3 scripts/share.py delete <id>` (`list` shows saved posts). If the gallery could confirm the GitHub login they gave, signing in with that account on the gallery deletes it too.

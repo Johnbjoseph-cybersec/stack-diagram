@@ -218,7 +218,7 @@ def main():
             dext = ext_of(db, dark_url) if len(db) >= 50 else None
             if dext:
                 dpath = outdir / f"{name}_dark.{dext}"
-                dpath.write_bytes(db); entry["dark_file"] = dpath.name
+                dpath.write_bytes(db); entry["dark_file"] = dpath.name; entry["dark_url"] = dark_url
         manifest[name] = entry
         flag = " [WHITE FILL -> dark tile]" if entry.get("white_fill") else ""
         if "dark_file" in entry:
