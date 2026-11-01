@@ -1,0 +1,12 @@
+.logo {
+  flex: none;
+  width: auto;
+  height: 16px;
+  max-width: 40px;
+  object-fit: contain;
+
+  &[data-size="20"] {
+    height: 20px;
+    max-width: 50px;
+  }
+}
