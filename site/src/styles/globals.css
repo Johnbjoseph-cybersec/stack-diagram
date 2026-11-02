@@ -1,5 +1,4 @@
 @import "@fontsource-variable/figtree";
-@import "@fontsource-variable/m-plus-2";
 @import "@fontsource-variable/jetbrains-mono";
 
 :root {
@@ -46,7 +45,7 @@
   --shadow-popup: 0 8px 24px rgb(14 35 54 / 0.12);
   --shadow-raised: 0 1px 2px rgb(14 35 54 / 0.08);
 
-  --font-sans: "Figtree Variable", "M PLUS 2 Variable", system-ui, sans-serif;
+  --font-sans: "Figtree Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --type-hero: 900 84px / 0.95 var(--font-sans);
