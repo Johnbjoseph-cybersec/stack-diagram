@@ -1,3 +1,4 @@
+import figtreeLatin from "@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url";
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 
 import globalsCss from "@/styles/globals.css?url";
@@ -10,6 +11,13 @@ export const Route = createRootRoute({
       { title: "stack-diagram" },
     ],
     links: [
+      {
+        rel: "preload",
+        href: figtreeLatin,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
       { rel: "stylesheet", href: globalsCss },
       { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
