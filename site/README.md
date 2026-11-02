@@ -22,13 +22,12 @@ These are one-time, manual steps. Nothing in the repo creates cloud resources.
 
 ### Neon
 
-1. Create a project; Singapore (`aws-ap-southeast-1`) is closest to Japan. Put its pooled connection string in `DATABASE_URL`.
-2. Apply the migrations: `DATABASE_URL=… pnpm db:migrate`.
-3. In Settings → Compute, cap the compute at 1 CU and keep scale to zero on. Set a spend alert in Billing.
-4. Turn on Neon Auth (Settings → Auth) on the same branch:
+1. Create a project; Singapore (`aws-ap-southeast-1`) is closest to Japan. Its pooled connection string is `DATABASE_URL`.
+2. In Settings → Compute, cap the compute at 1 CU and keep scale to zero on. Set a spend alert in Billing.
+3. Turn on Neon Auth (Settings → Auth) on the same branch:
    - Add GitHub with your own OAuth app. In the GitHub app (Settings → Developer settings → OAuth Apps), set the authorization callback URL to the one Neon shows, `{NEON_AUTH_BASE_URL}/callback/github`.
    - Add `https://stacks.caru.moe` (and your local dev origin) to the trusted domains.
-   - Copy the Auth URL into `NEON_AUTH_BASE_URL`.
+   - Its Auth URL is `NEON_AUTH_BASE_URL`.
 
 ### Cloudflare
 
@@ -36,30 +35,41 @@ These are one-time, manual steps. Nothing in the repo creates cloud resources.
 2. R2: create the bucket `stack-diagram-gallery`.
 3. Images: turn on Images for the account; the `IMAGES` binding re-encodes uploads.
 4. AI Gateway: create a gateway named `default`, or set `AI_GATEWAY` to its name. Clef runs through it.
-5. Turnstile: add a widget for `stacks.caru.moe` in managed mode. Put the site key in `TURNSTILE_SITE_KEY` in `wrangler.jsonc` and the secret key in `TURNSTILE_SECRET`.
-6. Admins: put your numeric GitHub id in `ADMIN_GITHUB_IDS` in `wrangler.jsonc` (`gh api users/<login> --jq .id`); separate several ids with commas.
-7. Secrets, each with `pnpm exec wrangler secret put <NAME>`:
+5. Turnstile: add a widget for `stacks.caru.moe` in managed mode. Its keys are `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET`.
+6. API token: create one from the "Edit Cloudflare Workers" template, limited to this account. It goes to GitHub as `CLOUDFLARE_API_TOKEN`.
+7. Security → WAF → Rate limiting rules: one rule for `http.request.method eq "POST" and http.request.uri.path eq "/api/stacks"`, 5 requests per 10 seconds per IP, block. Turn on Bot Fight Mode.
+8. Notifications: add usage-based billing alerts for Workers, R2, Images and Workers AI.
 
-   | Name                      | Value                                                      |
-   | ------------------------- | ---------------------------------------------------------- |
-   | `DATABASE_URL`            | Neon pooled connection string                              |
-   | `NEON_AUTH_BASE_URL`      | Neon Auth URL                                              |
-   | `NEON_AUTH_COOKIE_SECRET` | `openssl rand -base64 32`                                  |
-   | `POW_SECRET`              | `openssl rand -base64 32`                                  |
-   | `IP_HASH_SECRET`          | `openssl rand -base64 32`                                  |
-   | `GITHUB_TOKEN`            | A fine-grained token with no permissions, for public reads |
-   | `TURNSTILE_SECRET`        | Turnstile secret key                                       |
+### Secrets
 
-8. Security → WAF → Rate limiting rules: one rule for `http.request.method eq "POST" and http.request.uri.path eq "/api/stacks"`, 5 requests per 10 seconds per IP, block. Turn on Bot Fight Mode.
-9. Notifications: add usage-based billing alerts for Workers, R2, Images and Workers AI.
+The Worker's secrets are encrypted in `.env.production`, which is committed. Its private key is in `.env.keys`, which is not; keep a copy somewhere safe. Add or change a value with `pnpm exec dotenvx set <NAME> <value> -f .env.production`, then commit the file. dotenvx expands `$NAME` inside values, so write a literal `$` as `\$`.
+
+| Name                      | Value                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| `DATABASE_URL`            | Neon pooled connection string                                                      |
+| `NEON_AUTH_BASE_URL`      | Neon Auth URL                                                                      |
+| `NEON_AUTH_COOKIE_SECRET` | Random, already set                                                                |
+| `POW_SECRET`              | Random, already set                                                                |
+| `IP_HASH_SECRET`          | Random, already set                                                                |
+| `GITHUB_TOKEN`            | A fine-grained token with no permissions, for public reads                         |
+| `TURNSTILE_SECRET`        | Turnstile secret key                                                               |
+| `TURNSTILE_SITE_KEY`      | Turnstile site key                                                                 |
+| `ADMIN_GITHUB_IDS`        | Numeric GitHub ids, comma-separated (`gh api users/<login> --jq .id`); already set |
+
+A random value comes from `openssl rand -base64 32`.
+
+### GitHub
+
+1. Settings → Environments: create `production`. Add required reviewers there if each deploy should wait for approval.
+2. Add two secrets to that environment:
+   - `CLOUDFLARE_API_TOKEN`: the token from Cloudflare step 6.
+   - `DOTENV_PRIVATE_KEY_PRODUCTION`: `gh secret set DOTENV_PRIVATE_KEY_PRODUCTION --env production --body "$(pnpm exec dotenvx keypair DOTENV_PRIVATE_KEY_PRODUCTION -f .env.production)"`.
 
 ### Deploy
 
-```bash
-pnpm run deploy
-```
+`.github/workflows/site.yml` deploys when a push to `main` changes `site/`: after the checks pass, it builds, applies the migrations and runs `wrangler deploy` with the secrets from `.env.production`. Run the workflow from the Actions tab to deploy again without a change.
 
-Then add the custom domain `stacks.caru.moe` to the Worker (Workers → stack-diagram-gallery → Settings → Domains & Routes).
+After the first deploy, add the custom domain `stacks.caru.moe` to the Worker (Workers → stack-diagram-gallery → Settings → Domains & Routes).
 
 ## Limits
 

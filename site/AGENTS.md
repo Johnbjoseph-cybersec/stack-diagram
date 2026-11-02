@@ -33,6 +33,7 @@ TanStack Start on Cloudflare Workers (`@cloudflare/vite-plugin`, custom `src/ser
 - Comments only for design decisions and logic that is hard to follow, one line, in English.
 - UI copy is short, plain, factual English: no taglines, no flourishes, nothing that only describes the implementation.
 - Never edit a migration. Change `src/lib/db/schema.ts` and run `pnpm db:generate`.
+- Deploys run only from `.github/workflows/site.yml` on `main`, which applies the migrations first. Every Worker secret, `TURNSTILE_SITE_KEY` and `ADMIN_GITHUB_IDS` included, is encrypted with dotenvx in `.env.production` and ships with `wrangler deploy --secrets-file`.
 - `@neondatabase/serverless` is pinned to 1.1.0: the 1.2.0 bundle reassigns `const` bindings, so rolldown refuses it and it would throw at run time. Recheck before upgrading.
 - `expect(...).toHaveLength` throws in this toolchain (chai 6.3.0 has the same const-reassignment bug); assert on `.length` with `toBe`.
 

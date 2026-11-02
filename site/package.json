@@ -6,7 +6,6 @@
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
-    "deploy": "vp build && wrangler deploy",
     "check": "vp check --fix",
     "check:ci": "vp check",
     "check-types": "wrangler types && rm -rf .css-types && tcm -a -s -p '**/*.module.css' -o .css-types src && tsrs --noEmit",
@@ -34,6 +33,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.66.0",
+    "@dotenvx/dotenvx": "^2.38.1",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

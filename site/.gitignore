@@ -4,3 +4,4 @@ dist/
 .tanstack/
 .css-types/
 .dev.vars*
+.env.keys
