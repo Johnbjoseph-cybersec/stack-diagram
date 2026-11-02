@@ -67,6 +67,10 @@ The diagram is one HTML file with its fonts and logos inlined, so it renders any
   <img src="docs/html-page.png" alt="The docs chatbot diagram as an HTML page in a browser window, with a title, a short description, the diagram, a legend and a footer" width="100%">
 </picture>
 
+## Share it to the gallery
+
+After drawing, the agent offers once to post the diagram to the public gallery at https://stacks.caru.moe. It shows what will be public (the light and dark PNGs, an English title, the tech stack and a display name) and posts only after you say yes twice. Your prompt is never sent. A GitHub login is optional and never shown; it only lets you delete the post later. The site's source is in [`site/`](site).
+
 ## What you get
 
 - **Official logos, fetched for you.** From [svgl](https://svgl.app), then [devicon](https://devicon.dev), then [gilbarbara/logos](https://github.com/gilbarbara/logos), or the brand's own repository. AWS icons come from [AWS's own package](https://aws.amazon.com/architecture/icons/). Never recolored or redrawn.
@@ -74,6 +78,15 @@ The diagram is one HTML file with its fonts and logos inlined, so it renders any
 - **The format you need.** A self-contained HTML file (default), PNG, a dependency-free React component, or an Artifact.
 
 Requires Python 3.9+ and network access for the logos. PNG export uses Playwright with Chromium.
+
+## Star history
+
+<a href="https://www.star-history.com/?repos=caru-ini%2Fstack-diagram&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=caru-ini/stack-diagram&type=date&theme=dark&legend=top-left">
+    <img src="https://api.star-history.com/chart?repos=caru-ini/stack-diagram&type=date&legend=top-left" alt="Chart of GitHub stars for caru-ini/stack-diagram over time" width="100%">
+  </picture>
+</a>
 
 ## Licenses and trademarks
 
