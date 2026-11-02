@@ -10,9 +10,7 @@ export function TechChip({ item, size = "sm" }: { item: PublicStackItem; size?: 
 
   return (
     <span className={styles.chip} data-size={size}>
-      {item.icon ? (
-        <TechLogo src={item.icon} alt={logoOnly ? item.name : ""} size={size === "lg" ? 20 : 16} />
-      ) : null}
+      <TechLogo src={item.icon} alt={logoOnly ? item.name : ""} size={size === "lg" ? 20 : 16} />
       {logoOnly ? null : <span>{item.name}</span>}
     </span>
   );

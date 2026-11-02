@@ -10,6 +10,7 @@ import styles from "./filter-chip.module.css";
 type FilterChipProps = Omit<useRender.ComponentProps<"button">, "children"> & {
   label: string;
   count?: number;
+  /** A tech's logo; null draws the fallback tile, leaving it out draws nothing. */
   logo?: string | null;
   wide?: boolean;
   icon?: ReactNode;
@@ -48,7 +49,7 @@ export function FilterChip({
               {icon}
             </span>
           ) : null}
-          {logo ? <TechLogo src={logo} alt={logoOnly ? label : ""} /> : null}
+          {logo === undefined ? null : <TechLogo src={logo} alt={logoOnly ? label : ""} />}
           {logoOnly ? null : <span>{label}</span>}
           {count === undefined ? null : <span className={styles.count}>{count}</span>}
         </>

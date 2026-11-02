@@ -1,12 +1,29 @@
-.logo {
+.logo,
+.fallback {
+  --side: 16px;
+
   flex: none;
-  width: auto;
-  height: 16px;
-  max-width: 40px;
-  object-fit: contain;
 
   &[data-size="20"] {
-    height: 20px;
-    max-width: 50px;
+    --side: 20px;
   }
+}
+
+.logo {
+  width: auto;
+  height: var(--side);
+  max-width: calc(var(--side) * 2.5);
+  object-fit: contain;
+
+  &[data-loading] {
+    border-radius: calc(var(--side) * var(--radius-tile-ratio));
+    background-color: var(--state-hover);
+  }
+}
+
+.fallback {
+  width: var(--side);
+  height: var(--side);
+  border: calc(var(--side) / 6) solid var(--eye-iris);
+  border-radius: calc(var(--side) * var(--radius-tile-ratio));
 }
