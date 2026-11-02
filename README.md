@@ -79,6 +79,15 @@ After drawing, the agent offers once to post the diagram to the public gallery a
 
 Requires Python 3.9+ and network access for the logos. PNG export uses Playwright with Chromium.
 
+## Star history
+
+<a href="https://www.star-history.com/?repos=caru-ini%2Fstack-diagram&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=caru-ini/stack-diagram&type=date&theme=dark&legend=top-left">
+    <img src="https://api.star-history.com/chart?repos=caru-ini/stack-diagram&type=date&legend=top-left" alt="Chart of GitHub stars for caru-ini/stack-diagram over time" width="100%">
+  </picture>
+</a>
+
 ## Licenses and trademarks
 
 - Code and docs: MIT — see `LICENSE`.
