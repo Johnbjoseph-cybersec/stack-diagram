@@ -34,6 +34,7 @@ export function StackPage() {
             alt={stack.title}
             width={stack.width}
             height={stack.height}
+            className={styles.diagram}
           />
         </div>
       </div>

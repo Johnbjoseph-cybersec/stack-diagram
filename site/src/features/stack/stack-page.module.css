@@ -12,9 +12,19 @@
 }
 
 .shot {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
   padding: 10px;
   border-radius: var(--radius-card);
   background-color: var(--base-surface);
+}
+
+.shot .diagram {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: max(480px, 100svh - 300px);
 }
 
 .head {
@@ -114,6 +124,10 @@
 
   .side {
     width: auto;
+  }
+
+  .shot .diagram {
+    max-height: none;
   }
 }
 
