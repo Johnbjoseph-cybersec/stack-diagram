@@ -4,16 +4,18 @@ import { cx } from "@/lib/cx.ts";
 
 import styles from "./tech-logo.module.css";
 
-/** An official logo at a fixed height; wordmarks keep their width up to 2.5 × the height. A tech without a logo, or whose logo fails, gets a hollow tile like the site mark. */
+/** An official logo at a fixed height, up to 1.5 × the height wide, or 2.5 × for a wordmark. A tech without a logo, or whose logo fails, gets a hollow tile like the site mark. */
 export function TechLogo({
   src,
   alt,
   size = 16,
+  wordmark = false,
   className,
 }: {
   src: string | null;
   alt: string;
   size?: 16 | 20;
+  wordmark?: boolean;
   className?: string;
 }) {
   const [state, setState] = useState<"loading" | "loaded" | "failed">("loading");
@@ -45,6 +47,7 @@ export function TechLogo({
       onError={() => setState("failed")}
       className={cx(styles.logo, className)}
       data-size={size}
+      data-wordmark={wordmark || undefined}
       data-loading={state === "loading" || undefined}
     />
   );

@@ -12,8 +12,13 @@
 .logo {
   width: auto;
   height: var(--side);
-  max-width: calc(var(--side) * 2.5);
+  /* 1.5 gives a 2.2:1 mark like Cloudflare's cloud about the area of a square logo. */
+  max-width: calc(var(--side) * 1.5);
   object-fit: contain;
+
+  &[data-wordmark] {
+    max-width: calc(var(--side) * 2.5);
+  }
 
   &[data-loading] {
     border-radius: calc(var(--side) * var(--radius-tile-ratio));

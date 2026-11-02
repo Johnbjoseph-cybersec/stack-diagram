@@ -49,7 +49,9 @@ export function FilterChip({
               {icon}
             </span>
           ) : null}
-          {logo === undefined ? null : <TechLogo src={logo} alt={logoOnly ? label : ""} />}
+          {logo === undefined ? null : (
+            <TechLogo src={logo} alt={logoOnly ? label : ""} wordmark={logoOnly} />
+          )}
           {logoOnly ? null : <span>{label}</span>}
           {count === undefined ? null : <span className={styles.count}>{count}</span>}
         </>
