@@ -42,7 +42,7 @@ TanStack Start on Cloudflare Workers (`@cloudflare/vite-plugin`, custom `src/ser
 Figma file `bVLJGqMKwxAOCMYlMmsswM`: Foundations, Components, and Screens with a desktop and a mobile frame for Home, Stack, My posts (signed in and out), How to share and Admin, plus OGP.
 
 - Logo: a hollow iris rounded square (stroke side/6, radius side × 12/60) before the "stack-diagram" wordmark.
-- Tech logos are the official files, shown as they are with the name beside them; a wordmark logo (wider than 1.6:1) goes without the name.
+- Tech logos are the official files, shown as they are with the name beside them; a wordmark logo (wider than 3:1) goes without the name.
 - Status names: In service (mint ●), Held (lilac ▲), Suspended (red ■).
 - The diagram on the stack page zooms on tap with medium-zoom, as on the portfolio blog. Cards in lists link to the page and never zoom.
 

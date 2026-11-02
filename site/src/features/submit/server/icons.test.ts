@@ -107,10 +107,14 @@ describe("readIcon", () => {
 
 describe("wide detection", () => {
   it("reads the viewBox, with spaces or commas", () => {
-    expect(svgIsWide('<svg viewBox="0 0 200 100">')).toBe(true);
-    expect(svgIsWide('<svg viewBox="0,0,161,100">')).toBe(true);
-    expect(svgIsWide('<svg viewBox="0 0 160 100">')).toBe(false);
+    expect(svgIsWide('<svg viewBox="0 0 400 100">')).toBe(true);
+    expect(svgIsWide('<svg viewBox="0,0,301,100">')).toBe(true);
+    expect(svgIsWide('<svg viewBox="0 0 300 100">')).toBe(false);
     expect(svgIsWide('<svg viewBox="0 0 100 100">')).toBe(false);
+  });
+
+  it("keeps a wide mark like Cloudflare's cloud apart from wordmarks", () => {
+    expect(svgIsWide('<svg viewBox="0 0 256 116">')).toBe(false);
   });
 
   it("falls back to width and height, never stroke-width", () => {

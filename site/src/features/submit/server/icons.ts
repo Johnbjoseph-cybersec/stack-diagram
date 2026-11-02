@@ -14,7 +14,8 @@ export const ICON_PREFIXES = [
 export const MAX_ICON_FETCHES = 24;
 const ICON_TIMEOUT = 5000;
 const MAX_ICON_BYTES = 64 * 1024;
-const WIDE_ASPECT = 1.6;
+// svgl marks run up to 2.9:1 (Cloudflare's cloud is 2.2); every svgl logo past 3:1 is a wordmark.
+const WIDE_ASPECT = 3;
 
 type Icon = { ext: "svg" | "png" | "webp"; contentType: string; wide: boolean };
 type StoredIcon = { key: string; wide: boolean };
