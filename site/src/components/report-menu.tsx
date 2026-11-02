@@ -2,6 +2,7 @@ import { Menu } from "@base-ui/react/menu";
 import { FlagIcon } from "@phosphor-icons/react";
 
 import { buttonClass } from "./button.tsx";
+import { MenuItem, MenuPopup } from "./menu.tsx";
 
 import styles from "./report-menu.module.css";
 
@@ -23,21 +24,17 @@ export function ReportMenu({ onReport }: { onReport: (reason: ReportReason) => v
       >
         <FlagIcon weight="bold" aria-hidden />
       </Menu.Trigger>
-      <Menu.Portal>
-        <Menu.Positioner side="bottom" align="end" sideOffset={8} className={styles.positioner}>
-          <Menu.Popup className={styles.popup}>
-            <Menu.Group>
-              <Menu.GroupLabel className={styles.title}>Report this post</Menu.GroupLabel>
-              {REASONS.map(({ reason, label }) => (
-                <Menu.Item key={reason} className={styles.item} onClick={() => onReport(reason)}>
-                  <FlagIcon weight="bold" aria-hidden />
-                  {label}
-                </Menu.Item>
-              ))}
-            </Menu.Group>
-          </Menu.Popup>
-        </Menu.Positioner>
-      </Menu.Portal>
+      <MenuPopup className={styles.popup}>
+        <Menu.Group>
+          <Menu.GroupLabel className={styles.title}>Report this post</Menu.GroupLabel>
+          {REASONS.map(({ reason, label }) => (
+            <MenuItem key={reason} tone="danger" onClick={() => onReport(reason)}>
+              <FlagIcon weight="bold" aria-hidden />
+              {label}
+            </MenuItem>
+          ))}
+        </Menu.Group>
+      </MenuPopup>
     </Menu.Root>
   );
 }

@@ -1,9 +1,12 @@
-import { DownloadSimpleIcon, ExportIcon } from "@phosphor-icons/react";
+import { Menu } from "@base-ui/react/menu";
+import { CopyIcon, DotsThreeIcon, DownloadSimpleIcon, ExportIcon } from "@phosphor-icons/react";
 import { useRef, useState } from "react";
 
-import { Button } from "@/components/button.tsx";
+import { Button, buttonClass } from "@/components/button.tsx";
+import { MenuItem, MenuPopup } from "@/components/menu.tsx";
 import { type ReportReason, ReportMenu } from "@/components/report-menu.tsx";
 import { VoteControl } from "@/components/vote-control.tsx";
+import { cx } from "@/lib/cx.ts";
 import { errorText } from "@/lib/error-text.ts";
 import type { PublicStack, Theme } from "@/lib/public-stack.ts";
 
@@ -85,21 +88,22 @@ export function PostActions({
     });
   };
 
-  const share = async () => {
-    const data = shareData(stack, window.location.origin);
-    if ("share" in navigator) {
-      try {
-        await navigator.share(data);
-        return;
-      } catch (cause) {
-        if (cause instanceof DOMException && cause.name === "AbortError") return;
-      }
-    }
+  const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(data.url);
+      await navigator.clipboard.writeText(shareData(stack, window.location.origin).url);
       setMessage({ text: "Link copied", tone: "info" });
     } catch (cause) {
       setMessage({ text: errorText(cause), tone: "error" });
+    }
+  };
+
+  const share = async () => {
+    try {
+      await navigator.share(shareData(stack, window.location.origin));
+    } catch (cause) {
+      if (!(cause instanceof DOMException && cause.name === "AbortError")) {
+        setMessage({ text: errorText(cause), tone: "error" });
+      }
     }
   };
 
@@ -125,16 +129,27 @@ export function PostActions({
             <DownloadSimpleIcon weight="bold" aria-hidden />
             PNG
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            aria-label="Share"
-            className={styles.share}
-            onClick={() => void share()}
-          >
-            <ExportIcon weight="bold" aria-hidden />
-            <span className={styles.shareLabel}>Share</span>
-          </Button>
+          <Menu.Root>
+            <Menu.Trigger
+              aria-label="Share"
+              className={cx(buttonClass({ variant: "outline", size: "lg" }), styles.share)}
+            >
+              <ExportIcon weight="bold" aria-hidden />
+              <span className={styles.shareLabel}>Share</span>
+            </Menu.Trigger>
+            <MenuPopup>
+              <MenuItem onClick={() => void copyLink()}>
+                <CopyIcon weight="bold" aria-hidden />
+                Copy link
+              </MenuItem>
+              {"share" in navigator ? (
+                <MenuItem onClick={() => void share()}>
+                  <DotsThreeIcon weight="bold" aria-hidden />
+                  More options
+                </MenuItem>
+              ) : null}
+            </MenuPopup>
+          </Menu.Root>
           <ReportMenu onReport={report} />
         </div>
       </div>

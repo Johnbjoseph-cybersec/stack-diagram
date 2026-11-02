@@ -1,61 +1,9 @@
-.positioner {
-  z-index: 50;
-  outline: none;
-}
-
 .popup {
-  display: flex;
-  flex-direction: column;
   width: 300px;
-  max-width: calc(100vw - 2 * var(--page-gutter));
-  padding: 14px 8px 8px;
-  border: 1px solid var(--base-rule);
-  border-radius: var(--radius-inset);
-  background-color: var(--base-surface);
-  box-shadow: var(--shadow-popup);
-  outline: none;
-  transform-origin: var(--transform-origin);
-  transition:
-    opacity 150ms var(--ease-out),
-    scale 150ms var(--ease-out);
-
-  &[data-starting-style],
-  &[data-ending-style] {
-    opacity: 0;
-    scale: 0.96;
-  }
 }
 
 .title {
-  padding: 0 10px 8px;
+  padding: 6px 10px 8px;
   color: var(--text-ink-2);
   font: var(--type-label);
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-radius: var(--radius-inset);
-  color: var(--text-ink);
-  font: var(--type-label-small);
-  cursor: default;
-  outline: none;
-  user-select: none;
-
-  & + & {
-    margin-top: 4px;
-  }
-
-  &[data-highlighted] {
-    background-color: var(--eye-red-tint);
-  }
-
-  & svg {
-    flex: none;
-    width: 14px;
-    height: 14px;
-    color: var(--eye-red-ink);
-  }
 }
