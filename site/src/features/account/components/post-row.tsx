@@ -17,6 +17,7 @@ export function PostRow({ post }: { post: MyPost }) {
       stack={post}
       status={post.status}
       meta={postMeta(post)}
+      linked={post.status === "published"}
       actions={
         <ConfirmDialog
           trigger={

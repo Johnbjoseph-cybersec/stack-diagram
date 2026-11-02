@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { ComponentProps, ReactNode } from "react";
 
 import { formatDate } from "@/lib/format.ts";
@@ -9,17 +10,19 @@ import styles from "./stack-row.module.css";
 
 const THEMES: Theme[] = ["light", "dark"];
 
-/** A post as a list item: both images, title, status, date and meta, then actions; it stacks on phones. */
+/** A post as a list item: both images, title, status, date and meta, then actions; it stacks on phones. With `linked`, the whole row opens the post. */
 export function StackRow({
   stack,
   status,
   meta,
+  linked = false,
   children,
   actions,
 }: {
   stack: PublicStack;
   status: ComponentProps<typeof StatusBadge>["status"];
   meta: string | null;
+  linked?: boolean;
   children?: ReactNode;
   actions: ReactNode;
 }) {
@@ -40,7 +43,15 @@ export function StackRow({
         ))}
       </div>
       <div className={styles.info}>
-        <h2 className={styles.title}>{stack.title}</h2>
+        <h2 className={styles.title}>
+          {linked ? (
+            <Link to="/s/$id" params={{ id: stack.id }} className={styles.link}>
+              {stack.title}
+            </Link>
+          ) : (
+            stack.title
+          )}
+        </h2>
         <div className={styles.meta}>
           <StatusBadge status={status} />
           <time dateTime={stack.createdAt}>{formatDate(stack.createdAt)}</time>
