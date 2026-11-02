@@ -30,10 +30,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 11px 10px;
   border-radius: var(--radius-inset);
   color: var(--text-ink);
-  font: var(--type-label-small);
+  font: var(--type-label);
   cursor: default;
   outline: none;
   user-select: none;
@@ -48,8 +48,8 @@
 
   & svg {
     flex: none;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
   }
 
   &[data-tone="danger"] {
