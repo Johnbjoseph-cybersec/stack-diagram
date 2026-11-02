@@ -43,7 +43,7 @@ Figma file `bVLJGqMKwxAOCMYlMmsswM`: Foundations, Components, and Screens with a
 
 - Logo: a hollow iris rounded square (stroke side/6, radius side × 12/60) before the "stack-diagram" wordmark.
 - Tech logos are the official files, shown as they are with the name beside them; a wordmark logo (wider than 3:1) goes without the name.
-- Status names: In service (mint ●), Held (lilac ▲), Suspended (red ■).
+- Status names: Published (mint ●), In review (lilac ▲), Hidden (red ■).
 - The diagram on the stack page zooms on tap with medium-zoom, as on the portfolio blog. Cards in lists link to the page and never zoom.
 
 ## Invariants

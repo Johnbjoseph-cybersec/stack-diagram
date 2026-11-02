@@ -5,9 +5,9 @@ import styles from "./status-badge.module.css";
 type Status = "published" | "held" | "hidden";
 
 const BADGES: Record<Status, { label: string; shape: ShapeKind }> = {
-  published: { label: "In service", shape: "circle" },
-  held: { label: "Held", shape: "triangle" },
-  hidden: { label: "Suspended", shape: "square" },
+  published: { label: "Published", shape: "circle" },
+  held: { label: "In review", shape: "triangle" },
+  hidden: { label: "Hidden", shape: "square" },
 };
 
 export function StatusBadge({ status }: { status: Status }) {
