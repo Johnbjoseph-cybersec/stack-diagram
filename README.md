@@ -50,6 +50,26 @@ Works with Claude Code, Codex, Cursor and [other agents that support skills](htt
       <blockquote>Draw our app on AWS: CloudFront in front of S3 and an ALB in a public subnet. Fargate, RDS and ElastiCache sit in a private subnet.</blockquote>
     </td>
   </tr>
+  <tr>
+    <td colspan="2" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/gcp-dark.png">
+        <img src="docs/gcp.png" alt="Google Cloud diagram: a user reaches Cloud Load Balancing over HTTPS; the load balancer serves static paths from Cloud Storage and sends API paths to GKE in one region of a VPC; GKE queries Cloud SQL over SQL and uses Memorystore as a cache" width="100%">
+      </picture>
+      <p><b>Google Cloud, with Google's own icons</b></p>
+      <blockquote>Draw our app on Google Cloud: a global load balancer in front of Cloud Storage and GKE. GKE, Cloud SQL and Memorystore run in one region of a VPC.</blockquote>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/azure-dark.png">
+        <img src="docs/azure.png" alt="Azure diagram: a user reaches Azure Front Door over HTTPS; Front Door serves static paths from Azure Blob Storage and sends API paths to Azure App Service in the Japan East region; App Service queries Azure SQL Database over SQL and uses Azure Managed Redis as a cache, both through private endpoints in a virtual network" width="100%">
+      </picture>
+      <p><b>Azure, with Microsoft's own icons</b></p>
+      <blockquote>Draw our app on Azure: Front Door in front of Blob Storage and App Service. App Service reaches Azure SQL and Managed Redis through private endpoints in a VNet.</blockquote>
+    </td>
+  </tr>
 </table>
 
 ## Light and dark
@@ -73,7 +93,7 @@ After drawing, the agent offers once to post the diagram to the public gallery a
 
 ## What you get
 
-- **Official logos, fetched for you.** From [svgl](https://svgl.app), then [devicon](https://devicon.dev), then [gilbarbara/logos](https://github.com/gilbarbara/logos), or the brand's own repository. AWS icons come from [AWS's own package](https://aws.amazon.com/architecture/icons/). Never recolored or redrawn.
+- **Official logos, fetched for you.** From [svgl](https://svgl.app), then [devicon](https://devicon.dev), then [gilbarbara/logos](https://github.com/gilbarbara/logos), or the brand's own repository. AWS, Google Cloud and Azure icons come from each vendor's own package: [AWS](https://aws.amazon.com/architecture/icons/), [Google Cloud](https://cloud.google.com/icons), [Azure](https://learn.microsoft.com/en-us/azure/architecture/icons/). Never recolored or redrawn.
 - **No arrows through text.** Lines are routed around labels, and the agent renders the diagram and checks it before handing it over.
 - **The format you need.** A self-contained HTML file (default), PNG, a dependency-free React component, or an Artifact.
 
@@ -92,4 +112,4 @@ Requires Python 3.9+ and network access for the logos. PNG export uses Playwrigh
 
 - Code and docs: MIT — see `LICENSE`.
 - Bundled fonts: SIL Open Font License 1.1 — see `skills/stack-diagram/assets/fonts/`.
-- Logos are **not** bundled with the skill. They are downloaded at build time from [svgl](https://svgl.app), [devicon](https://devicon.dev) (MIT), [gilbarbara/logos](https://github.com/gilbarbara/logos) (CC0), [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) and [Lucide](https://lucide.dev) (ISC), or from the brand's own site or repository. The example images in `docs/` show third-party logos. All brand names and logos are trademarks of their respective owners; their use in a diagram does not imply endorsement. The scripts never recolor or alter a logo.
+- Logos are **not** bundled with the skill. They are downloaded at build time from [svgl](https://svgl.app), [devicon](https://devicon.dev) (MIT), [gilbarbara/logos](https://github.com/gilbarbara/logos) (CC0), [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/), [Google Cloud product icons](https://cloud.google.com/icons), [Azure icons](https://learn.microsoft.com/en-us/azure/architecture/icons/) and [Lucide](https://lucide.dev) (ISC), or from the brand's own site or repository. The example images in `docs/` show third-party logos. All brand names and logos are trademarks of their respective owners; their use in a diagram does not imply endorsement. The scripts never recolor or alter a logo. Microsoft permits the Azure icons in architecture diagrams, training materials and documentation.
